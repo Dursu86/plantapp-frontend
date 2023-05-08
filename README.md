@@ -47,6 +47,16 @@ El proyecto ha sido probado con Jest. Para ejecutar las pruebas, utiliza el sigu
 
 Si quieres contribuir al proyecto, puedes bifurcar el repositorio, hacer tus cambios y enviar una solicitud de extracción.
 
+## Acerca de este repositorio
+
+Este proyecto fue iniciado en el contexto de un bootcamp y se encontraba alojado en otro repositorio.
+Actualmente, he decidido continuar su desarrollo en un repositorio personal. Puedes encontrar el repositorio original aquí:
+
+https://github.com/isdi-coders-2023/Daniel-Ursua-Final-Project-front-202301-mad
+
+Este documento ha sido redactado en colaboración con ChatGPT, un modelo de lenguaje grande entrenado por OpenAI.
+
+
                                             --------------------------
 
 # PlantApp
@@ -97,4 +107,11 @@ The project has been tested with Jest. To run the tests, use the following comma
 
 If you would like to contribute to the project, you can fork the repository, make your changes, and submit a pull request.
 
-Este documento ha sido redactado en colaboración con ChatGPT, un modelo de lenguaje grande entrenado por OpenAI.
+## About this repository
+
+I started this project in the context of a bootcamp and have now decided to continue it in a personal repository.
+The original repository can be found 
+
+https://github.com/isdi-coders-2023/Daniel-Ursua-Final-Project-front-202301-mad
+
+This document has been written in collaboration with ChatGPT, a large language model trained by OpenAI.
