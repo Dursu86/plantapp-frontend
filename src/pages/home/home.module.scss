@@ -1,0 +1,53 @@
+.header {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  margin: 0;
+  font-size: 2.5rem;
+  text-align: center;
+  font-family: "Nixie One", cursive;
+}
+
+.logo {
+  width: 3.5rem;
+  margin-left: 1rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8rem;
+}
+
+.login {
+  width: 11rem;
+  margin: 1rem;
+  padding: 1.25rem;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  border-width: 0;
+  box-shadow: 1px 5px 5px 1px grey;
+}
+
+.register {
+  width: 11rem;
+  margin: 1rem;
+  padding: 1.25rem;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  border-width: 0;
+  box-shadow: 1px 5px 5px 1px grey;
+}
+
+.sprout {
+  width: 22.5rem;
+}

@@ -1,0 +1,14 @@
+.delete {
+  background-color: #325a3e;
+  border-width: 0;
+  color: white;
+  font-family: "Inter", sans-serif;
+  border-radius: 20%;
+  font-size: 1rem;
+  font-weight: bold;
+  width: min-content;
+}
+.delete:hover {
+  background-color: white;
+  color: #325a3e;
+}

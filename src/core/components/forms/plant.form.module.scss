@@ -1,0 +1,96 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.name {
+  width: 15rem;
+  border-width: 0;
+  background-color: #cad4b3;
+  border-radius: 10%;
+  padding: 0.5rem;
+}
+.radio {
+  display: flex;
+  flex-direction: row;
+  gap: 1.9rem;
+}
+.indoor {
+  border-color: black;
+}
+.indoor:hover {
+  background-color: #cad4b3;
+}
+.indoor:checked::after {
+  background-color: #cad4b3;
+}
+.heightField {
+  display: flex;
+  gap: 0.5rem;
+  text-align: left;
+  margin-right: 9.9rem;
+}
+.height {
+  width: min-content;
+}
+.humLabel {
+  display: flex;
+  justify-content: space-around;
+  gap: 10.5rem;
+}
+.humidity,
+.lightness,
+.difficulty {
+  width: 17rem;
+  display: flex;
+  flex-direction: column;
+}
+.labelR,
+.labelL {
+  margin: 0;
+  padding: 0;
+}
+.labelR {
+  text-align: right;
+}
+.range {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.labelPet {
+  display: flex;
+  gap: 0.3rem;
+  margin-right: 11.5rem;
+}
+.photo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.button {
+  margin-top: 1.5rem;
+  border-radius: 3rem;
+  width: 16rem;
+  padding: 1rem;
+  border-width: 0;
+  background-color: #325a3e;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: bold;
+}
+.h1,
+.h2 {
+  font-family: "Inter", sans-serif;
+  margin-left: 2rem;
+}
+.h1 {
+  padding-top: 1rem;
+}
+.h2 {
+  padding-bottom: 1rem;
+}

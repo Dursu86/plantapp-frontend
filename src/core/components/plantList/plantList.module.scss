@@ -1,0 +1,15 @@
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+.h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.8rem;
+  color: #325a3e;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
