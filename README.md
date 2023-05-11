@@ -56,7 +56,6 @@ https://github.com/isdi-coders-2023/Daniel-Ursua-Final-Project-front-202301-mad
 
 Este documento ha sido redactado en colaboración con ChatGPT, un modelo de lenguaje grande entrenado por OpenAI.
 
-
                                             --------------------------
 
 # PlantApp
@@ -110,7 +109,7 @@ If you would like to contribute to the project, you can fork the repository, mak
 ## About this repository
 
 I started this project in the context of a bootcamp and have now decided to continue it in a personal repository.
-The original repository can be found 
+The original repository can be found
 
 https://github.com/isdi-coders-2023/Daniel-Ursua-Final-Project-front-202301-mad
 
