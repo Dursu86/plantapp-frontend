@@ -9,7 +9,7 @@ export function RegUserForm() {
   const repo = useMemo(() => new UsersApiRepo(), []);
   const { register } = useUsers(repo);
 
-  const handleSubmit = (ev: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (ev: SyntheticEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const formRegUser = ev.currentTarget;
     const regUser: Partial<User> = {
@@ -17,7 +17,7 @@ export function RegUserForm() {
       email: (formRegUser.elements[1] as HTMLInputElement).value,
       passwd: (formRegUser.elements[2] as HTMLInputElement).value,
     };
-    register(regUser);
+    await register(regUser);
 
     formRegUser.reset();
   };

@@ -12,9 +12,11 @@ export function Edit({ id }: editProps) {
   const { updatePlant } = usePlants(repo);
   const navigate = useNavigate();
 
-  const handleClick = async (ev: SyntheticEvent) => {
-    await updatePlant(id);
-    navigate("/edit");
+  const handleClick = (ev: SyntheticEvent) => {
+    (async () => {
+      await updatePlant(id);
+      navigate("/edit");
+    })();
   };
   return (
     <button type="button" onClick={handleClick} className={styles.edit}>

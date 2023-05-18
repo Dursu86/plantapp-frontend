@@ -90,7 +90,7 @@ describe("Given Add PlantForm component", () => {
       await fireEvent.change(rangeInputs[1], { target: { value: 4 } });
       await fireEvent.change(rangeInputs[2], { target: { value: 3 } });
       await userEvent.click(petInput);
-      userEvent.type(fileInput, "test");
+      await userEvent.type(fileInput, "test");
       await userEvent.click(button);
       expect(usePlants(plantsMockRepo).addPlant).not.toHaveBeenCalled();
     });
@@ -107,7 +107,7 @@ describe("Given Add PlantForm component", () => {
       await fireEvent.change(rangeInputs[2], { target: { value: 2 } });
       await fireEvent.change(petInput, { target: { checked: true } });
       const fileInput = screen.getByPlaceholderText("Photo");
-      userEvent.upload(
+      await userEvent.upload(
         fileInput,
         new File(["test"], "test.png", {
           type: "image/png",
@@ -169,7 +169,7 @@ describe("When the form is called from edit", () => {
 
   test("All the components should have the user value", async () => {
     const plantsMockRepo = {} as unknown as PlantsApiRepo;
-    userEvent.upload(
+    await userEvent.upload(
       fileInput,
       new File(["test"], "test.png", {
         type: "image/png",

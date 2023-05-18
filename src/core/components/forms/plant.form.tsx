@@ -14,7 +14,7 @@ export function PlantForm({ titles }: FormProps) {
   const { addPlant, plants } = usePlants(repo);
   const actualPlant = plants.actualPlant;
 
-  const handleSubmit = (ev: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (ev: SyntheticEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const formAddPlant = ev.currentTarget;
     const file = (formAddPlant.elements[9] as HTMLInputElement).files?.item(0);
@@ -30,7 +30,7 @@ export function PlantForm({ titles }: FormProps) {
       difficulty: (formAddPlant.elements[7] as HTMLInputElement).value,
       petFriendly: (formAddPlant.elements[8] as HTMLInputElement).checked,
     };
-    addPlant(addInfo, file);
+    await addPlant(addInfo, file);
 
     formAddPlant.reset();
   };

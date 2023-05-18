@@ -10,7 +10,7 @@ export type deleteProps = {
 export function Delete({ id }: deleteProps) {
   const repo = useMemo(() => new PlantsApiRepo(), []);
   const { deletePlantById } = usePlants(repo);
-  const handleClick = async (ev: SyntheticEvent) => {
+  const handleClick = (ev: SyntheticEvent) => {
     deletePlantById(id);
   };
 
