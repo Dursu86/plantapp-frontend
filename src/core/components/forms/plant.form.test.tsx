@@ -90,7 +90,7 @@ describe("Given Add PlantForm component", () => {
       await fireEvent.change(rangeInputs[1], { target: { value: 4 } });
       await fireEvent.change(rangeInputs[2], { target: { value: 3 } });
       await userEvent.click(petInput);
-      userEvent.type(fileInput, "test");
+      await userEvent.type(fileInput, "test");
       await userEvent.click(button);
       expect(usePlants(plantsMockRepo).addPlant).not.toHaveBeenCalled();
     });
