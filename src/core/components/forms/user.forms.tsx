@@ -19,7 +19,7 @@ export function LogUserForm() {
       passwd: (formLogUser.elements[1] as HTMLInputElement).value,
     };
     await loginUser(logUser);
-    navigate("/plants");
+    await navigate("/plants");
     formLogUser.reset();
   };
 
