@@ -1,4 +1,7 @@
+import { useMemo } from "react";
 import { PlantInTheList } from "../../../features/plants/models/plant.model";
+import { useUsers } from "../../../features/users/hooks/use.users";
+import { UsersApiRepo } from "../../../features/users/services/users.api.repo";
 import { Delete } from "../delete/delete.plant";
 import { Edit } from "../edit/edit";
 import styles from "./card.module.scss";
@@ -8,6 +11,11 @@ type CardProps = {
 };
 
 export default function CardPlant({ info }: CardProps) {
+  const repo = useMemo(() => new UsersApiRepo(), []);
+  const { users } = useUsers(repo);
+  if (!users.userLogged) throw new Error("You must be logged");
+  const userPlants = users.userLogged.user.myPlants;
+  const checkPlant = userPlants.some((plant) => plant.id === info.id);
   return (
     <div>
       <li key={info.id} className={styles.card}>
@@ -15,12 +23,12 @@ export default function CardPlant({ info }: CardProps) {
         <section className={styles.info}>
           <span className={styles.edit}>
             <p className={styles.location}>{info.location}</p>
-            <Edit id={info.id}></Edit>
+            {checkPlant && <Edit id={info.id}></Edit>}
           </span>
           <span className={styles.name}>
             <p>{info.name}</p>
             <span className={styles.delete}>
-              <Delete id={info.id}></Delete>
+              {checkPlant && <Delete id={info.id}></Delete>}
             </span>
           </span>
         </section>
