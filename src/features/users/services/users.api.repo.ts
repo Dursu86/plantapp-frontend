@@ -1,3 +1,4 @@
+import { config } from "../../../config";
 import { User, UserBackResponse } from "../models/user.model";
 
 export interface UserRepoStructure {
@@ -8,7 +9,7 @@ export interface UserRepoStructure {
 export class UsersApiRepo {
   url: string;
   constructor() {
-    this.url = "https://daniel-ursua-plantapp.onrender.com/users/";
+    this.url = `${config.backendUrl}/users/`;
   }
   async registerUserRepo(user: Partial<User>): Promise<User> {
     const resp = await fetch(this.url + "register", {
