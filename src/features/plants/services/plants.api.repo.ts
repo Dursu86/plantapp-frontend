@@ -1,3 +1,4 @@
+import { config } from "../../../config";
 import {
   Plant,
   PlantBackResponse,
@@ -12,7 +13,7 @@ export interface PlantRepoStructure {
 export class PlantsApiRepo {
   url: string;
   constructor() {
-    this.url = "https://daniel-ursua-plantapp.onrender.com/plants";
+    this.url = `${config.backendUrl}/plants/`;
   }
   async addPlantRepo(info: ProtoPlant, token: string): Promise<Plant> {
     const resp = await fetch(this.url + "add", {
