@@ -5,6 +5,7 @@ import { UsersApiRepo } from "../../../features/users/services/users.api.repo";
 import { Delete } from "../delete/delete.plant";
 import { Edit } from "../edit/edit";
 import styles from "./card.module.scss";
+import { useNavigate } from "react-router-dom";
 
 type CardProps = {
   info: PlantInTheList;
@@ -13,7 +14,11 @@ type CardProps = {
 export default function CardPlant({ info }: CardProps) {
   const repo = useMemo(() => new UsersApiRepo(), []);
   const { users } = useUsers(repo);
-  if (!users.userLogged) throw new Error("You must be logged");
+  const navigate = useNavigate();
+  if (!users.userLogged) {
+    navigate("/login");
+    return <p>Please log in to access this page.</p>;
+  }
   const userPlants = users.userLogged.user.myPlants;
   const checkPlant = userPlants.some((plant) => plant.id === info.id);
   return (
