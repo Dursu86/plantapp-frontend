@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import { SyntheticEvent, useMemo } from "react";
+import { SyntheticEvent, useMemo, useState } from "react";
 import { usePlants } from "../../../features/plants/hooks/use.plants";
 import {
   ProtoPlant,
@@ -13,7 +13,10 @@ export function PlantForm({ titles }: FormProps) {
   const repo = useMemo(() => new PlantsApiRepo(), []);
   const { addPlant, plants } = usePlants(repo);
   const actualPlant = plants.actualPlant;
-
+  const [showMessage, setShowMessage] = useState(false);
+  const message = plants.actualPlant
+    ? "Plant updated successfully!"
+    : "Plant added successfully!";
   const handleSubmit = async (ev: SyntheticEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const formAddPlant = ev.currentTarget;
@@ -31,8 +34,11 @@ export function PlantForm({ titles }: FormProps) {
       petFriendly: (formAddPlant.elements[8] as HTMLInputElement).checked,
     };
     await addPlant(addInfo, file);
-
     formAddPlant.reset();
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3000);
   };
 
   return (
@@ -170,6 +176,7 @@ export function PlantForm({ titles }: FormProps) {
         <button type="submit" className={styles.button}>
           Send
         </button>
+        {showMessage && <p>{message}</p>}
       </form>
     </>
   );
