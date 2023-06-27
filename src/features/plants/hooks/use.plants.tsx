@@ -20,13 +20,15 @@ export function usePlants(repo: PlantsApiRepo) {
   const addPlant = async (info: ProtoPlant, file: File) => {
     console.log("add");
     try {
-      const token = users.userLogged?.token;
-      if (!token) throw new Error("You must be logged");
+      if (!users.userLogged) throw new Error("You must be logged");
+      const token = users.userLogged.token;
+      const userPlants = users.userLogged.user.myPlants;
       const storageRef = ref(storage, file.name);
       await uploadBytes(storageRef, file);
       const imgURL = await getDownloadURL(storageRef);
       info.photo = imgURL;
-      await repo.addPlantRepo(info, token);
+      const data = await repo.addPlantRepo(info, token);
+      userPlants.push(data);
     } catch (error) {
       console.log("error");
       dispatch(setError((error as Error).message));

@@ -96,7 +96,7 @@ describe("Given Add PlantForm component", () => {
     });
   });
   describe("When all the fields are complete", () => {
-    test("Then, the handleSubmit function should be called", async () => {
+    test("Then, the handleSubmit function should be called and a message should appear", async () => {
       const plantsMockRepo = {} as unknown as PlantsApiRepo;
       await userEvent.type(textInput, "test");
       let radioInputs = screen.getByLabelText("Indoor");
@@ -113,8 +113,10 @@ describe("Given Add PlantForm component", () => {
           type: "image/png",
         })
       );
-      const button = screen.getByRole("button");
-      await userEvent.click(button);
+      const submit = screen.getByRole("button");
+      await userEvent.click(submit);
+      const element = screen.queryByText(/Plant added successfully/i);
+      expect(element).toBeInTheDocument();
       expect(usePlants(plantsMockRepo).addPlant).toHaveBeenCalledWith(
         {
           name: "test",
@@ -129,6 +131,30 @@ describe("Given Add PlantForm component", () => {
           type: "image/png",
         })
       );
+    });
+    test("Then, after three seconds the message should disappear", (done) => {
+      setTimeout(() => {
+        userEvent.type(textInput, "test");
+        let radioInputs = screen.getByLabelText("Indoor");
+        fireEvent.change(radioInputs, { target: { value: "outdoor" } });
+        fireEvent.change(heightInput, { target: { value: "6" } });
+        fireEvent.change(rangeInputs[0], { target: { value: 2 } });
+        fireEvent.change(rangeInputs[1], { target: { value: 2 } });
+        fireEvent.change(rangeInputs[2], { target: { value: 2 } });
+        fireEvent.change(petInput, { target: { checked: true } });
+        const fileInput = screen.getByPlaceholderText("Photo");
+        userEvent.upload(
+          fileInput,
+          new File(["test"], "test.png", {
+            type: "image/png",
+          })
+        );
+        const submit = screen.getByRole("button");
+        userEvent.click(submit);
+        const element = screen.queryByText(/Plant added successfully/i);
+        expect(element).toBe(null);
+        done();
+      }, 3000);
     });
   });
 });
