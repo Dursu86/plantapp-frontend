@@ -8,7 +8,6 @@ import { usePlants } from "../../../features/plants/hooks/use.plants";
 import { PlantsApiRepo } from "../../../features/plants/services/plants.api.repo";
 import { FormProps } from "../../../types/formTypes";
 import { PlantForm } from "./plant.form";
-import { useState } from "react";
 
 jest.mock("../../../features/plants/hooks/use.plants.tsx");
 
@@ -97,41 +96,8 @@ describe("Given Add PlantForm component", () => {
     });
   });
   describe("When all the fields are complete", () => {
-    test("Then, the handleSubmit function should be called", async () => {
+    test("Then, the handleSubmit function should be called and a message should appear", async () => {
       const plantsMockRepo = {} as unknown as PlantsApiRepo;
-      await userEvent.type(textInput, "test");
-      let radioInputs = screen.getByLabelText("Indoor");
-      await fireEvent.change(radioInputs, { target: { value: "outdoor" } });
-      await fireEvent.change(heightInput, { target: { value: "6" } });
-      await fireEvent.change(rangeInputs[0], { target: { value: 2 } });
-      await fireEvent.change(rangeInputs[1], { target: { value: 2 } });
-      await fireEvent.change(rangeInputs[2], { target: { value: 2 } });
-      await fireEvent.change(petInput, { target: { checked: true } });
-      const fileInput = screen.getByPlaceholderText("Photo");
-      await userEvent.upload(
-        fileInput,
-        new File(["test"], "test.png", {
-          type: "image/png",
-        })
-      );
-      const submit = screen.getByRole("button");
-      await userEvent.click(submit);
-      expect(usePlants(plantsMockRepo).addPlant).toHaveBeenCalledWith(
-        {
-          name: "test",
-          location: "outdoor",
-          height: "6",
-          humidity: "2",
-          lightness: "2",
-          difficulty: "2",
-          petFriendly: true,
-        },
-        new File(["test"], "test.png", {
-          type: "image/png",
-        })
-      );
-    });
-    test("Then, a message should be printed for three seconds", async () => {
       await userEvent.type(textInput, "test");
       let radioInputs = screen.getByLabelText("Indoor");
       await fireEvent.change(radioInputs, { target: { value: "outdoor" } });
@@ -151,8 +117,22 @@ describe("Given Add PlantForm component", () => {
       await userEvent.click(submit);
       const element = screen.queryByText(/Plant added successfully/i);
       expect(element).toBeInTheDocument();
+      expect(usePlants(plantsMockRepo).addPlant).toHaveBeenCalledWith(
+        {
+          name: "test",
+          location: "outdoor",
+          height: "6",
+          humidity: "2",
+          lightness: "2",
+          difficulty: "2",
+          petFriendly: true,
+        },
+        new File(["test"], "test.png", {
+          type: "image/png",
+        })
+      );
     });
-    test("Then, after three seconds it should disappear", (done) => {
+    test("Then, after three seconds the message should disappear", (done) => {
       setTimeout(() => {
         userEvent.type(textInput, "test");
         let radioInputs = screen.getByLabelText("Indoor");
