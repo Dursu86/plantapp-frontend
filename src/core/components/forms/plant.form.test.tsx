@@ -8,6 +8,7 @@ import { usePlants } from "../../../features/plants/hooks/use.plants";
 import { PlantsApiRepo } from "../../../features/plants/services/plants.api.repo";
 import { FormProps } from "../../../types/formTypes";
 import { PlantForm } from "./plant.form";
+import { useState } from "react";
 
 jest.mock("../../../features/plants/hooks/use.plants.tsx");
 
@@ -113,8 +114,8 @@ describe("Given Add PlantForm component", () => {
           type: "image/png",
         })
       );
-      const button = screen.getByRole("button");
-      await userEvent.click(button);
+      const submit = screen.getByRole("button");
+      await userEvent.click(submit);
       expect(usePlants(plantsMockRepo).addPlant).toHaveBeenCalledWith(
         {
           name: "test",
@@ -129,6 +130,51 @@ describe("Given Add PlantForm component", () => {
           type: "image/png",
         })
       );
+    });
+    test("Then, a message should be printed for three seconds", async () => {
+      await userEvent.type(textInput, "test");
+      let radioInputs = screen.getByLabelText("Indoor");
+      await fireEvent.change(radioInputs, { target: { value: "outdoor" } });
+      await fireEvent.change(heightInput, { target: { value: "6" } });
+      await fireEvent.change(rangeInputs[0], { target: { value: 2 } });
+      await fireEvent.change(rangeInputs[1], { target: { value: 2 } });
+      await fireEvent.change(rangeInputs[2], { target: { value: 2 } });
+      await fireEvent.change(petInput, { target: { checked: true } });
+      const fileInput = screen.getByPlaceholderText("Photo");
+      await userEvent.upload(
+        fileInput,
+        new File(["test"], "test.png", {
+          type: "image/png",
+        })
+      );
+      const submit = screen.getByRole("button");
+      await userEvent.click(submit);
+      const element = screen.queryByText(/Plant added successfully/i);
+      expect(element).toBeInTheDocument();
+    });
+    test("Then, after three seconds it should disappear", (done) => {
+      setTimeout(() => {
+        userEvent.type(textInput, "test");
+        let radioInputs = screen.getByLabelText("Indoor");
+        fireEvent.change(radioInputs, { target: { value: "outdoor" } });
+        fireEvent.change(heightInput, { target: { value: "6" } });
+        fireEvent.change(rangeInputs[0], { target: { value: 2 } });
+        fireEvent.change(rangeInputs[1], { target: { value: 2 } });
+        fireEvent.change(rangeInputs[2], { target: { value: 2 } });
+        fireEvent.change(petInput, { target: { checked: true } });
+        const fileInput = screen.getByPlaceholderText("Photo");
+        userEvent.upload(
+          fileInput,
+          new File(["test"], "test.png", {
+            type: "image/png",
+          })
+        );
+        const submit = screen.getByRole("button");
+        userEvent.click(submit);
+        const element = screen.queryByText(/Plant added successfully/i);
+        expect(element).toBe(null);
+        done();
+      }, 3000);
     });
   });
 });
