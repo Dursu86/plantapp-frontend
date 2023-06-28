@@ -1,3 +1,3 @@
 export const config = {
-  backendUrl: "https://plantapp-backend.onrender.com",
+  backendUrl: "http://localhost:4500",
 };
