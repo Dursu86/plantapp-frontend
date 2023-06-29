@@ -4,6 +4,8 @@ import {
   PlantInTheList,
   ProtoPlant,
 } from "../../../features/plants/models/plant.model";
+import { User } from "../../users/models/user.model";
+import { UsersState } from "../../users/reducer/user.slice";
 import { PlantsApiRepo } from "./plants.api.repo";
 
 const mockResp = {
@@ -19,7 +21,14 @@ const mockPlant = {
   name: "test",
 } as ProtoPlant;
 
-const mockToken = "test";
+const mockUserInfo = {
+  userLogged: {
+    token: "test",
+    user: {} as User,
+  },
+} as unknown as UsersState;
+
+const mockToken = "test" as string;
 
 const mockPlants = {
   results: [
@@ -42,7 +51,7 @@ describe("Given the plants api repo", () => {
   describe("When we call the add method", () => {
     test("if the answer is not ok, then it should throw an error", async () => {
       global.fetch = jest.fn().mockResolvedValue("error");
-      const result = repo.addPlantRepo(mockPlant, mockToken);
+      const result = repo.addPlantRepo(mockPlant, mockUserInfo);
       await expect(result).rejects.toThrow();
     });
     test("If the answer is ok, then it should return the plant added", async () => {
@@ -50,7 +59,7 @@ describe("Given the plants api repo", () => {
         ok: true,
         json: jest.fn().mockResolvedValue(mockResp),
       });
-      const result = await repo.addPlantRepo(mockPlant, mockToken);
+      const result = await repo.addPlantRepo(mockPlant, mockUserInfo);
       expect(result).toEqual(mockResp);
     });
   });
