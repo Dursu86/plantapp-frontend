@@ -1,4 +1,5 @@
 import { config } from "../../../config";
+import { UsersState } from "../../users/reducer/user.slice";
 import {
   Plant,
   PlantBackResponse,
@@ -15,13 +16,14 @@ export class PlantsApiRepo {
   constructor() {
     this.url = `${config.backendUrl}/plants/`;
   }
-  async addPlantRepo(info: ProtoPlant, token: string): Promise<Plant> {
+  async addPlantRepo(info: ProtoPlant, userInfo: UsersState): Promise<Plant> {
+    const plantData = { ...info, userInfo: userInfo.userLogged?.user };
     const resp = await fetch(this.url + "add", {
       method: "POST",
-      body: JSON.stringify(info),
+      body: JSON.stringify(plantData),
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + userInfo.userLogged?.token,
       },
     });
     if (!resp.ok)

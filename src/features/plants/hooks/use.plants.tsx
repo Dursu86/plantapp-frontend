@@ -21,14 +21,12 @@ export function usePlants(repo: PlantsApiRepo) {
     console.log("add");
     try {
       if (!users.userLogged) throw new Error("You must be logged");
-      const token = users.userLogged.token;
-      const userPlants = users.userLogged.user.myPlants;
+      const userInfo = users;
       const storageRef = ref(storage, file.name);
       await uploadBytes(storageRef, file);
       const imgURL = await getDownloadURL(storageRef);
       info.photo = imgURL;
-      const data = await repo.addPlantRepo(info, token);
-      userPlants.push(data);
+      await repo.addPlantRepo(info, userInfo);
     } catch (error) {
       console.log("error");
       dispatch(setError((error as Error).message));
